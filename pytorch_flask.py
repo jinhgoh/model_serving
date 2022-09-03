@@ -49,5 +49,9 @@ def hello_world():
 
     return "The prediction from GCP API is {}".format(prediction)
 
+@app.route('/hello')
+def hello():
+   retrun 'Hello, world!'
+
 if __name__ == "__main__":
     app.run(host= '0.0.0.0',port=8005, debug=True)
