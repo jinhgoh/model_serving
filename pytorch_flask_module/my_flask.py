@@ -9,30 +9,8 @@ from torch.nn import functional as F
 import pandas as pd
 import numpy as np
 
-input_size=2
-output_size=2
-hidden_size=10
+from my_pytorch import ML_model
 
-local_scaler = pickle.load(open('sc.pickle','rb'))
-
-class Net(nn.Module):
-   def __init__(self):
-       super(Net, self).__init__()
-       self.fc1 = torch.nn.Linear(input_size, hidden_size)
-       self.fc2 = torch.nn.Linear(hidden_size, hidden_size)
-       self.fc3 = torch.nn.Linear(hidden_size, output_size)
-
-
-   def forward(self, X):
-       X = torch.relu((self.fc1(X)))
-       X = torch.relu((self.fc2(X)))
-       X = self.fc3(X)
-
-       return F.log_softmax(X,dim=1)
-
-new_predictor2 = Net()
-
-new_predictor2.load_state_dict(torch.load('customer_buy_state_dict'))
 
 app = Flask(__name__)
 
@@ -43,9 +21,9 @@ def ML_result():
     salary = request_data['salary']
     print(age)
     print(salary)
-    
-    prediction = new_predictor2(torch.from_numpy(local_scaler.transform(np.array([[age,salary]]))).float())[:,0]
 
+    prediction = ML_model(40,20000)
+    
     print("prediction:")
     print(prediction)
     return "The prediction from GCP API is {}".format(prediction)
