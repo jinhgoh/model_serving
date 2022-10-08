@@ -46,8 +46,10 @@ def hello_world():
     
     prediction = new_predictor2(torch.from_numpy(local_scaler.transform(np.array([[age,salary]]))).float())[:,0]
 
-
+    print("prediction:")
+    print(prediction)
     return "The prediction from GCP API is {}".format(prediction)
+    #return "1"
 
 @app.route('/hello')
 def hello():
