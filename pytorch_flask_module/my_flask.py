@@ -37,7 +37,7 @@ new_predictor2.load_state_dict(torch.load('customer_buy_state_dict'))
 app = Flask(__name__)
 
 @app.route('/model',methods=['POST'])
-def hello_world():
+def ML_result():
     request_data = request.get_json(force=True)
     age = request_data['age']
     salary = request_data['salary']
